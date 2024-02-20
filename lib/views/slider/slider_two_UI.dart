@@ -15,13 +15,11 @@ class _SLIDER_TWO_UIState extends State<SLIDER_TWO_UI> {
     return Scaffold(
       body: Stack(
         children: [
-          // Use Animate widget directly on Image.asset
           Image.asset(
-            'assets/images/screen_two.jpg',
+            'assets/images/screen_two_bg.jpg',
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            colorBlendMode: ColorEffect.defaultBlendMode,
           ),
           Positioned(
             left: 0,

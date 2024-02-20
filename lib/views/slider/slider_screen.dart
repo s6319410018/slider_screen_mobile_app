@@ -18,6 +18,8 @@ class _SLIDER_UIState extends State<SLIDER_UI> {
   ];
 
   int _currentPage = 0;
+  final PageController _pageController = PageController(initialPage: 0);
+  final ScrollController _scrollController = ScrollController();
 
   Widget buildIndicator(int index) {
     return AnimatedContainer(
@@ -35,38 +37,48 @@ class _SLIDER_UIState extends State<SLIDER_UI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              itemCount: pages.length,
-              controller: PageController(initialPage: _currentPage),
-              onPageChanged: (value) {
-                setState(() {
-                  _currentPage = value;
-                });
-              },
-              itemBuilder: (context, index) {
-                return pages[index];
-              },
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: MediaQuery.of(context).size.height * 0.002,
-            child: Container(
-              color: Colors.transparent,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  pages.length,
-                  (index) => buildIndicator(index),
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: PageView.builder(
+                  itemCount: pages.length,
+                  controller: _pageController,
+                  onPageChanged: (value) {
+                    setState(() {
+                      _currentPage = value;
+                    });
+                  },
+                  itemBuilder: (context, index) {
+                    return pages[index];
+                  },
                 ),
               ),
-            ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: MediaQuery.of(context).size.height * 0.002,
+                child: Container(
+                  color: Colors.transparent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      pages.length,
+                      (index) => buildIndicator(index),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -11,11 +11,10 @@ class SLIDER_ONE_UI extends StatelessWidget {
       body: Stack(
         children: [
           Image.asset(
-            'assets/images/screen_one.jpg',
+            'assets/images/screen_one_bg.jpg',
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            colorBlendMode: ColorEffect.defaultBlendMode,
           ),
           Positioned(
             left: 0,
