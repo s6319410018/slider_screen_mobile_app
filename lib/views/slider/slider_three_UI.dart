@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,6 +17,7 @@ class _SLIDER_THREE_UIState extends State<SLIDER_THREE_UI> {
 
   bool isObscureText = true;
   bool isremember = true;
+  bool isButtonClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class _SLIDER_THREE_UIState extends State<SLIDER_THREE_UI> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.1,
+                      top: MediaQuery.of(context).size.height * 0.12,
                       left: MediaQuery.of(context).size.width * 0.04,
                       right: MediaQuery.of(context).size.width * 0.04,
                       bottom: MediaQuery.of(context).size.height * 0.0,
@@ -289,40 +291,22 @@ class _SLIDER_THREE_UIState extends State<SLIDER_THREE_UI> {
                               height:
                                   MediaQuery.of(context).size.height * 0.002,
                             ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                  primary:
-                                      const Color.fromARGB(0, 255, 255, 255),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  side: BorderSide(
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.0005,
-                                      style: BorderStyle.solid,
-                                      color: Colors.white)),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.268,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.268,
-                                  bottom: MediaQuery.of(context).size.height *
-                                      0.015,
-                                ),
-                                child: Text(
-                                  'Login',
-                                  style: GoogleFonts.kanit(
-                                    color: Colors.white,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
-                                  ),
-                                ),
-                              ),
+                            AnimatedButton(
+                              height: MediaQuery.of(context).size.height * 0.08,
+                              width: MediaQuery.of(context).size.width * 0.82,
+                              text: 'Login',
+                              isReverse: true,
+                              selectedTextColor: Colors.black,
+                              transitionType: TransitionType.LEFT_TO_RIGHT,
+                              textStyle: GoogleFonts.kanit(
+                                  color: Colors.white,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.08),
+                              backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+                              borderColor: Colors.white,
+                              borderRadius: 15,
+                              borderWidth: 0.5,
+                              onPress: () {},
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.01,
