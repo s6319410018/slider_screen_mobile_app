@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:animated_background/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
 import 'package:slider_screen/views/slider/slider_screen.dart';
 
 class SPLASH_UI extends StatefulWidget {

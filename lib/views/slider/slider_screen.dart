@@ -22,12 +22,12 @@ class _SLIDER_UIState extends State<SLIDER_UI> {
   Widget buildIndicator(int index) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 1000),
-      width: MediaQuery.of(context).size.width * 0.02,
-      height: MediaQuery.of(context).size.height * 0.02,
+      width: MediaQuery.of(context).size.width * 0.04,
+      height: MediaQuery.of(context).size.height * 0.04,
       margin: EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: _currentPage == index ? Colors.grey : Colors.black,
+        color: _currentPage == index ? Colors.white : Colors.grey,
       ),
     );
   }
