@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:slider_screen/views/splash/splash_UI.dart';
 
 class SLIDER_THREE_UI extends StatefulWidget {
   const SLIDER_THREE_UI({Key? key}) : super(key: key);
@@ -11,13 +12,27 @@ class SLIDER_THREE_UI extends StatefulWidget {
   State<SLIDER_THREE_UI> createState() => _SLIDER_THREE_UIState();
 }
 
-class _SLIDER_THREE_UIState extends State<SLIDER_THREE_UI> {
+class _SLIDER_THREE_UIState extends State<SLIDER_THREE_UI>
+    with SingleTickerProviderStateMixin {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool isObscureText = true;
   bool isremember = true;
   bool isButtonClicked = false;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +55,7 @@ class _SLIDER_THREE_UIState extends State<SLIDER_THREE_UI> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.12,
+                      top: MediaQuery.of(context).size.height * 0.1,
                       left: MediaQuery.of(context).size.width * 0.04,
                       right: MediaQuery.of(context).size.width * 0.04,
                       bottom: MediaQuery.of(context).size.height * 0.0,
@@ -277,7 +292,33 @@ class _SLIDER_THREE_UIState extends State<SLIDER_THREE_UI> {
                                         0.185,
                                   ),
                                   TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                                  secondaryAnimation) =>
+                                              SPLASH_UI(),
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            const begin = 0.0;
+                                            const end = 1.0;
+                                            var tween =
+                                                Tween(begin: begin, end: end);
+                                            var fadeAnimation =
+                                                animation.drive(tween);
+                                            return FadeTransition(
+                                              opacity: fadeAnimation,
+                                              child: child,
+                                            );
+                                          },
+                                          transitionDuration:
+                                              const Duration(milliseconds: 500),
+                                        ),
+                                      );
+                                    },
                                     child: Text(
                                       'Register Click me',
                                       style: GoogleFonts.kanit(
@@ -311,23 +352,36 @@ class _SLIDER_THREE_UIState extends State<SLIDER_THREE_UI> {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.01,
                             ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Or Login With",
-                                style: GoogleFonts.kanit(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.035,
-                                  color: Colors.white,
-                                  shadows: [
-                                    Shadow(
-                                      color: Colors.black,
-                                      offset: Offset(2.0, 1.0),
-                                      blurRadius: 3.0,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.0,
+                                left: MediaQuery.of(context).size.width * 0.04,
+                                right: MediaQuery.of(context).size.width * 0.04,
+                                bottom:
+                                    MediaQuery.of(context).size.height * 0.00,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Divider(
+                                      color: Colors.white,
                                     ),
-                                  ],
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Text(
+                                      "Or",
+                                      style: GoogleFonts.kanit(
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Divider(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             SizedBox(

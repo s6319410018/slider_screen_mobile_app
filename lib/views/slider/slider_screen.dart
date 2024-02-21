@@ -1,4 +1,6 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:slider_screen/views/slider/slider_one_UI.dart';
 import 'package:slider_screen/views/slider/slider_three_UI.dart';
 import 'package:slider_screen/views/slider/slider_two_UI.dart';
@@ -20,6 +22,7 @@ class _SLIDER_UIState extends State<SLIDER_UI> {
   int _currentPage = 0;
   final PageController _pageController = PageController(initialPage: 0);
   final ScrollController _scrollController = ScrollController();
+  //final player = AudioPlayer();
 
   Widget buildIndicator(int index) {
     return AnimatedContainer(
@@ -36,6 +39,10 @@ class _SLIDER_UIState extends State<SLIDER_UI> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       body: SingleChildScrollView(
         controller: _scrollController,
@@ -57,6 +64,7 @@ class _SLIDER_UIState extends State<SLIDER_UI> {
                     });
                   },
                   itemBuilder: (context, index) {
+                    //player.play(AssetSource('assets/audio/sound_bg.mp3'));
                     return pages[index];
                   },
                 ),
