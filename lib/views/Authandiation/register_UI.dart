@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -45,125 +47,174 @@ class _LoginRegisterCardState extends State<LoginRegisterCard>
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/screen_three_bg.jpg"),
+            image: AssetImage("assets/images/login_page.jpg"),
             fit: BoxFit.cover,
+            colorFilter: ColorFilter.matrix([
+              1, 0, 0, 0, 0, // Red channel
+              0, 1, 0, 0, 0, // Green channel
+              0, 0, 1, 0, 0, // Blue channel
+              0, 0, 0, 1, 0, // Alpha channe
+            ]),
           ),
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: ClipOval(
-                child: Container(
-                  color: Colors.white,
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  width: MediaQuery.of(context).size.height * 0.2,
-                  child: Image.asset(
-                    "assets/images/logo.png",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors
-                      .white, // Change this color to the desired border color
-                  width: 1.0, // You can adjust the border width
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              height: MediaQuery.of(context).size.height * 0.6,
-              child: Card(
-                color: Colors.transparent,
-                elevation: 0, // Set elevation to 0 to remove the shadow
-                child: Column(
-                  children: [
-                    Card(
-                      child: TabBar(
-                        dividerColor: Colors.white,
-                        indicator: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(
-                              10)), // Set border radius// Set the color of the sele
-
-                          color: Colors
-                              .black, // Set the color of the selected tab indicator
-                          // Add other properties as needed
-                        ),
-                        indicatorColor: Colors.red,
-                        labelColor: Colors.white,
-                        unselectedLabelColor: Colors.black,
-                        controller: _tabController,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        tabs: [
-                          Tab(
-                            text: '\t\t\t\t\t\t\tLogin\t\t\t\t\t\t',
-                            icon: Icon(
-                              FontAwesomeIcons.userAlt,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Tab(
-                            text: '\t\t\t\t\tRegister\t\t\t\t\t',
-                            icon: Icon(
-                              FontAwesomeIcons.fileSignature,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.02,
-                              right: MediaQuery.of(context).size.width * 0.05,
-                              left: MediaQuery.of(context).size.width * 0.05,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: isCardOneVisible
-                                      ? Animate(
-                                          child:
-                                              Card_EMAIL(onCardTap: toggleCards)
-                                                  .animate()
-                                                  .fade(delay: 2.ms))
-                                      : Card_PHONE(onCardTap: toggleCards),
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                // Your register page content
-                                Text('Register Page Content'),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(1), // Shadow color
+              blurRadius: 10.0, // Blur radius
+              spreadRadius: 5.0, // Spread radius
+              offset: Offset(0, 5), // Shadow offset
             ),
           ],
+        ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: MediaQuery.of(context).size.width * 0.00,
+            sigmaY: MediaQuery.of(context).size.height * 0.00,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.03),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.85,
+                    child: Animate(
+                      child: Card(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.02,
+                            ),
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: ClipOval(
+                                child: Container(
+                                  color: Colors.white,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                  width:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                  child: Image.asset(
+                                    "assets/images/logo.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.02,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(3),
+                              color: Colors.transparent,
+                              child: TabBar(
+                                dividerColor: Colors.transparent,
+                                indicatorColor: Colors.redAccent,
+                                labelColor: Colors.white,
+                                unselectedLabelColor: Colors.white,
+                                controller: _tabController,
+                                indicatorSize: TabBarIndicatorSize.tab,
+                                automaticIndicatorColorAdjustment: true,
+                                tabs: [
+                                  Container(
+                                    width: double.infinity,
+                                    child: Animate(
+                                      child: Tab(
+                                        child: Text(
+                                          'Login',
+                                          style: GoogleFonts.kanit(),
+                                        ),
+                                        icon: Icon(
+                                          FontAwesomeIcons.userAlt,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ).animate().fade(delay: 2.ms),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    child: Animate(
+                                      child: Tab(
+                                        child: Text(
+                                          "Regiter",
+                                          style: GoogleFonts.kanit(),
+                                        ),
+                                        icon: Icon(
+                                          FontAwesomeIcons.fileSignature,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ).animate().fade(delay: 2.ms),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: TabBarView(
+                                controller: _tabController,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          0.02,
+                                      right: MediaQuery.of(context).size.width *
+                                          0.05,
+                                      left: MediaQuery.of(context).size.width *
+                                          0.05,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          child: isCardOneVisible
+                                              ? Card_EMAIL(
+                                                  onCardTap: toggleCards)
+                                              : Animate(
+                                                  child: Card_PHONE(
+                                                      onCardTap: toggleCards),
+                                                ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        // Your register page content
+                                        Text('Register Page Content'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ).animate().fade(delay: 2.ms),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -195,285 +246,323 @@ class _Card_EMAILState extends State<Card_EMAIL> {
   bool isremember = true;
   bool isButtonClicked = false;
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          Text('Email'),
-          TextButton(
-              onPressed: () {
-                widget.onCardTap();
-              },
-              child: Text('Phone login')),
-        ]),
-        TextField(
-          controller: _usernameController,
-          cursorColor: Colors.white,
-          cursorRadius: Radius.circular(100),
-          cursorHeight: MediaQuery.of(context).size.height * 0.04,
-          cursorWidth: MediaQuery.of(context).size.width * 0.001,
-          cursorOpacityAnimates: true,
-          showCursor: true,
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            filled: false,
-            fillColor: Colors.white,
-            prefixIcon: Icon(Icons.person, color: Colors.white),
-            hintText: 'example@gmail.com',
-            hintStyle: GoogleFonts.kanit(
-              fontSize: MediaQuery.of(context).size.width * 0.04,
-              color: Colors.white54,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                width: MediaQuery.of(context).size.width * 0.001,
-                color: Colors.white,
-                style: BorderStyle.solid,
-              ),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                width: MediaQuery.of(context).size.width * 0.001,
-                color: Colors.white,
-                style: BorderStyle.solid,
-              ),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            labelText: 'Username',
-            labelStyle: GoogleFonts.kanit(
-              fontSize: MediaQuery.of(context).size.width * 0.04,
-              color: Colors.white,
-            ),
-          ),
-          style:
-              TextStyle(color: Colors.white), // Set text color for entered text
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
-        ),
-        TextField(
-          obscureText: isObscureText,
-          controller: _passwordController,
-          cursorColor: Colors.white,
-          cursorRadius: Radius.circular(100),
-          cursorHeight: MediaQuery.of(context).size.height * 0.04,
-          cursorWidth: MediaQuery.of(context).size.width * 0.001,
-          cursorOpacityAnimates: true,
-          showCursor: true,
-          keyboardType: TextInputType.visiblePassword,
-          decoration: InputDecoration(
-            // caretColor: Colors.white,
-            // selectionHandleColor: Colors.white,
-            hoverColor: Colors.white,
-            focusColor: Colors.white,
-            filled: false,
-            fillColor: Colors.white,
-            prefixIcon: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.password_rounded,
-                color: Colors.white,
-              ),
-            ),
-            suffixIcon: isObscureText
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isObscureText = !isObscureText;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.visibility_off_rounded,
-                      color: Colors.white,
-                    ),
-                  )
-                : IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isObscureText = !isObscureText;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.visibility_rounded,
-                      color: Colors.white,
-                    ),
-                  ),
-            hintText: 'xxxxxxx',
-            hintStyle: GoogleFonts.kanit(
-              fontSize: MediaQuery.of(context).size.width * 0.04,
-              color: Colors.white54,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                width: MediaQuery.of(context).size.width * 0.001,
-                color: Colors.white,
-                style: BorderStyle.solid,
-              ),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                width: MediaQuery.of(context).size.width * 0.001,
-                color: Colors.white,
-                style: BorderStyle.solid,
-              ),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            labelText: 'Password',
-            labelStyle: GoogleFonts.kanit(
-              fontSize: MediaQuery.of(context).size.width * 0.04,
-              color: Colors.white,
-            ),
-          ),
-          style: TextStyle(
-            color: Colors.white,
-          ), // Set text color for entered text
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Checkbox(
-              fillColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-                  return isremember
-                      ? Colors.blue
-                      : Colors.grey; // Change these colors as needed
-                },
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              checkColor: Colors.white,
-              value: isremember,
-              onChanged: (value) {
-                setState(() {
-                  isremember = value ?? false;
-                });
-              },
-            ),
+    return Animate(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Text(
-              'Remember me',
-              style: GoogleFonts.kanit(color: Colors.white),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.0,
+              'Login with Email',
+              style: GoogleFonts.kanit(
+                color: Colors.white,
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+              ),
             ),
             TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        SPLASH_UI(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      const begin = 0.0;
-                      const end = 1.0;
-                      var tween = Tween(begin: begin, end: end);
-                      var fadeAnimation = animation.drive(tween);
-                      return FadeTransition(
-                        opacity: fadeAnimation,
-                        child: child,
-                      );
-                    },
-                    transitionDuration: const Duration(milliseconds: 500),
-                  ),
-                );
+                widget.onCardTap();
               },
+              style: TextButton.styleFrom(
+                primary: Colors.black, // Background color
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
               child: Text(
-                'Forgot your password?',
+                'Login with Phone',
+                style: GoogleFonts.kanit(
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
+                  color: Colors.redAccent,
+                  decoration: TextDecoration.combine([
+                    TextDecoration.underline,
+                  ]),
+                  decorationColor: Colors.redAccent,
+                  decorationThickness: 2.0,
+                ),
+              ),
+            ),
+          ]),
+          TextField(
+            controller: _usernameController,
+            cursorColor: Colors.white,
+            cursorRadius: Radius.circular(100),
+            cursorHeight: MediaQuery.of(context).size.height * 0.04,
+            cursorWidth: MediaQuery.of(context).size.width * 0.001,
+            cursorOpacityAnimates: true,
+            showCursor: true,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              filled: false,
+              fillColor: Colors.white,
+              prefixIcon: Icon(Icons.person, color: Colors.white),
+              hintText: 'example@gmail.com',
+              hintStyle: GoogleFonts.kanit(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+                color: Colors.white54,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: MediaQuery.of(context).size.width * 0.001,
+                  color: Colors.white,
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: MediaQuery.of(context).size.width * 0.001,
+                  color: Colors.white,
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              labelText: 'Username',
+              labelStyle: GoogleFonts.kanit(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+                color: Colors.white,
+              ),
+            ),
+            style: TextStyle(
+                color: Colors.white), // Set text color for entered text
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
+          TextField(
+            obscureText: isObscureText,
+            controller: _passwordController,
+            cursorColor: Colors.white,
+            cursorRadius: Radius.circular(100),
+            cursorHeight: MediaQuery.of(context).size.height * 0.04,
+            cursorWidth: MediaQuery.of(context).size.width * 0.001,
+            cursorOpacityAnimates: true,
+            showCursor: true,
+            keyboardType: TextInputType.visiblePassword,
+            decoration: InputDecoration(
+              // caretColor: Colors.white,
+              // selectionHandleColor: Colors.white,
+              hoverColor: Colors.white,
+              focusColor: Colors.white,
+              filled: false,
+              fillColor: Colors.white,
+              prefixIcon: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.password_rounded,
+                  color: Colors.white,
+                ),
+              ),
+              suffixIcon: isObscureText
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isObscureText = !isObscureText;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.visibility_off_rounded,
+                        color: Colors.white,
+                      ),
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isObscureText = !isObscureText;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.visibility_rounded,
+                        color: Colors.white,
+                      ),
+                    ),
+              hintText: 'xxxxxxx',
+              hintStyle: GoogleFonts.kanit(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+                color: Colors.white54,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: MediaQuery.of(context).size.width * 0.001,
+                  color: Colors.white,
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: MediaQuery.of(context).size.width * 0.001,
+                  color: Colors.white,
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              labelText: 'Password',
+              labelStyle: GoogleFonts.kanit(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+                color: Colors.white,
+              ),
+            ),
+            style: TextStyle(
+              color: Colors.white,
+            ), // Set text color for entered text
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Checkbox(
+                fillColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    return isremember
+                        ? Colors.blue
+                        : Colors.grey; // Change these colors as needed
+                  },
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                checkColor: Colors.white,
+                value: isremember,
+                onChanged: (value) {
+                  setState(() {
+                    isremember = value ?? false;
+                  });
+                },
+              ),
+              Text(
+                'Remember me',
                 style: GoogleFonts.kanit(color: Colors.white),
               ),
-            )
-          ],
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.002,
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          child: Text('test'),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.0,
-            left: MediaQuery.of(context).size.width * 0.04,
-            right: MediaQuery.of(context).size.width * 0.04,
-            bottom: MediaQuery.of(context).size.height * 0.00,
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Divider(
-                  color: Colors.white,
-                ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.0,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          SPLASH_UI(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = 0.0;
+                        const end = 1.0;
+                        var tween = Tween(begin: begin, end: end);
+                        var fadeAnimation = animation.drive(tween);
+                        return FadeTransition(
+                          opacity: fadeAnimation,
+                          child: child,
+                        );
+                      },
+                      transitionDuration: const Duration(milliseconds: 500),
+                    ),
+                  );
+                },
                 child: Text(
-                  "Or",
+                  'Forgot your password?',
                   style: GoogleFonts.kanit(color: Colors.white),
                 ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.002,
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue,
+              onPrimary: Colors.black, // Text color
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
-              Expanded(
-                child: Divider(
-                  color: Colors.white,
+            ),
+            onPressed: () {
+              // Handle button press
+              print('Button pressed!');
+            },
+            child: Text('Press Me'),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.0,
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.height * 0.00,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Divider(
+                    color: Colors.white,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    "Or",
+                    style: GoogleFonts.kanit(color: Colors.white),
+                  ),
+                ),
+                Expanded(
+                  child: Divider(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Card(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Center(
+                    child: Icon(FontAwesomeIcons.facebook,
+                        color: Colors.blue,
+                        size: MediaQuery.of(context).size.width * 0.1),
+                  ),
+                ),
+              ),
+              Card(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Center(
+                    child: Icon(FontAwesomeIcons.google,
+                        color: Colors.red,
+                        size: MediaQuery.of(context).size.width * 0.1),
+                  ),
+                ),
+              ),
+              Card(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Center(
+                    child: Icon(FontAwesomeIcons.line,
+                        color: Colors.green,
+                        size: MediaQuery.of(context).size.width * 0.1),
+                  ),
+                ),
+              ),
+              Card(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Center(
+                    child: Icon(FontAwesomeIcons.github,
+                        color: Colors.black,
+                        size: MediaQuery.of(context).size.width * 0.1),
+                  ),
                 ),
               ),
             ],
           ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.01,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Card(
-              child: IconButton(
-                onPressed: () {},
-                icon: Center(
-                  child: Icon(FontAwesomeIcons.facebook,
-                      color: Colors.blue,
-                      size: MediaQuery.of(context).size.width * 0.1),
-                ),
-              ),
-            ),
-            Card(
-              child: IconButton(
-                onPressed: () {},
-                icon: Center(
-                  child: Icon(FontAwesomeIcons.google,
-                      color: Colors.red,
-                      size: MediaQuery.of(context).size.width * 0.1),
-                ),
-              ),
-            ),
-            Card(
-              child: IconButton(
-                onPressed: () {},
-                icon: Center(
-                  child: Icon(FontAwesomeIcons.line,
-                      color: Colors.green,
-                      size: MediaQuery.of(context).size.width * 0.1),
-                ),
-              ),
-            ),
-            Card(
-              child: IconButton(
-                onPressed: () {},
-                icon: Center(
-                  child: Icon(FontAwesomeIcons.github,
-                      color: Colors.black,
-                      size: MediaQuery.of(context).size.width * 0.1),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+        ],
+      ),
+    ).animate().fade(delay: 2.ms);
   }
 }
 
@@ -486,26 +575,313 @@ class Card_PHONE extends StatefulWidget {
 }
 
 class _Card_PHONEState extends State<Card_PHONE> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  bool isObscureText = true;
+  bool isremember = true;
+  bool isButtonClicked = false;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onCardTap, // Use widget.onCardTap here
-      child: Card(
-        color: Colors.amber,
-        margin: EdgeInsets.all(16.0),
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+    return Animate(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            TextButton(
+              onPressed: () {
+                widget.onCardTap();
+              },
+              child: Text(
+                'Login with Email',
+                style: GoogleFonts.kanit(
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
+                  color: Colors.redAccent,
+                  decoration: TextDecoration.combine([
+                    TextDecoration.underline,
+                    TextDecoration.underline,
+                  ]),
+                  decorationColor: Colors.redAccent,
+                  decorationThickness: 2.0,
+                ),
+              ),
+            ),
+            Text(
+              'Login with Phone',
+              style: GoogleFonts.kanit(
+                color: Colors.white,
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+              ),
+            ),
+          ]),
+          TextField(
+            controller: _usernameController,
+            cursorColor: Colors.white,
+            cursorRadius: Radius.circular(100),
+            cursorHeight: MediaQuery.of(context).size.height * 0.04,
+            cursorWidth: MediaQuery.of(context).size.width * 0.001,
+            cursorOpacityAnimates: true,
+            showCursor: true,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              filled: false,
+              fillColor: Colors.white,
+              prefixIcon: Icon(Icons.person, color: Colors.white),
+              hintText: 'example@gmail.com',
+              hintStyle: GoogleFonts.kanit(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+                color: Colors.white54,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: MediaQuery.of(context).size.width * 0.001,
+                  color: Colors.white,
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: MediaQuery.of(context).size.width * 0.001,
+                  color: Colors.white,
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              labelText: 'Username',
+              labelStyle: GoogleFonts.kanit(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+                color: Colors.white,
+              ),
+            ),
+            style: TextStyle(
+                color: Colors.white), // Set text color for entered text
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
+          TextField(
+            obscureText: isObscureText,
+            controller: _passwordController,
+            cursorColor: Colors.white,
+            cursorRadius: Radius.circular(100),
+            cursorHeight: MediaQuery.of(context).size.height * 0.04,
+            cursorWidth: MediaQuery.of(context).size.width * 0.001,
+            cursorOpacityAnimates: true,
+            showCursor: true,
+            keyboardType: TextInputType.visiblePassword,
+            decoration: InputDecoration(
+              // caretColor: Colors.white,
+              // selectionHandleColor: Colors.white,
+              hoverColor: Colors.white,
+              focusColor: Colors.white,
+              filled: false,
+              fillColor: Colors.white,
+              prefixIcon: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.password_rounded,
+                  color: Colors.white,
+                ),
+              ),
+              suffixIcon: isObscureText
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isObscureText = !isObscureText;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.visibility_off_rounded,
+                        color: Colors.white,
+                      ),
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isObscureText = !isObscureText;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.visibility_rounded,
+                        color: Colors.white,
+                      ),
+                    ),
+              hintText: 'xxxxxxx',
+              hintStyle: GoogleFonts.kanit(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+                color: Colors.white54,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: MediaQuery.of(context).size.width * 0.001,
+                  color: Colors.white,
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: MediaQuery.of(context).size.width * 0.001,
+                  color: Colors.white,
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              labelText: 'Password',
+              labelStyle: GoogleFonts.kanit(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+                color: Colors.white,
+              ),
+            ),
+            style: TextStyle(
+              color: Colors.white,
+            ), // Set text color for entered text
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Checkbox(
+                fillColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    return isremember
+                        ? Colors.blue
+                        : Colors.grey; // Change these colors as needed
+                  },
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                checkColor: Colors.white,
+                value: isremember,
+                onChanged: (value) {
+                  setState(() {
+                    isremember = value ?? false;
+                  });
+                },
+              ),
               Text(
-                'Card Two Content',
-                style: TextStyle(fontSize: 18.0),
+                'Remember me',
+                style: GoogleFonts.kanit(color: Colors.white),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.0,
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          SPLASH_UI(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = 0.0;
+                        const end = 1.0;
+                        var tween = Tween(begin: begin, end: end);
+                        var fadeAnimation = animation.drive(tween);
+                        return FadeTransition(
+                          opacity: fadeAnimation,
+                          child: child,
+                        );
+                      },
+                      transitionDuration: const Duration(milliseconds: 500),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Forgot your password?',
+                  style: GoogleFonts.kanit(color: Colors.white),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.002,
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('test'),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.0,
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.height * 0.00,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Divider(
+                    color: Colors.white,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    "Or",
+                    style: GoogleFonts.kanit(color: Colors.white),
+                  ),
+                ),
+                Expanded(
+                  child: Divider(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Card(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Center(
+                    child: Icon(FontAwesomeIcons.facebook,
+                        color: Colors.blue,
+                        size: MediaQuery.of(context).size.width * 0.1),
+                  ),
+                ),
+              ),
+              Card(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Center(
+                    child: Icon(FontAwesomeIcons.google,
+                        color: Colors.red,
+                        size: MediaQuery.of(context).size.width * 0.1),
+                  ),
+                ),
+              ),
+              Card(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Center(
+                    child: Icon(FontAwesomeIcons.line,
+                        color: Colors.green,
+                        size: MediaQuery.of(context).size.width * 0.1),
+                  ),
+                ),
+              ),
+              Card(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Center(
+                    child: Icon(FontAwesomeIcons.github,
+                        color: Colors.black,
+                        size: MediaQuery.of(context).size.width * 0.1),
+                  ),
+                ),
               ),
             ],
           ),
-        ),
+        ],
       ),
-    );
+    ).animate().fade(delay: 2.ms);
   }
 }
