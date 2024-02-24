@@ -1,15 +1,19 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:slider_screen/views/Authandiation/email.dart';
-import 'package:slider_screen/views/Authandiation/phone.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:slider_screen/views/splash/splash_UI.dart';
-import 'package:flutter_octicons/flutter_octicons.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: LoginRegisterCard(),
+    debugShowCheckedModeBanner: false,
+  ));
+}
 
 class LoginRegisterCard extends StatefulWidget {
   @override
@@ -221,13 +225,6 @@ class _LoginRegisterCardState extends State<LoginRegisterCard>
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: LoginRegisterCard(),
-    debugShowCheckedModeBanner: false,
-  ));
 }
 
 class Card_EMAIL extends StatefulWidget {
@@ -590,120 +587,83 @@ class _Card_PHONEState extends State<Card_PHONE> {
   bool isremember = true;
   bool isButtonClicked = false;
   bool isButtonLock = false;
+  String selectedCountry = 'United States'; // Default selected country
+
+  List<String> countries = [
+    'United States',
+    'Canada',
+    'United Kingdom',
+    'Germany',
+    'France',
+    // Add more countries as needed
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Animate(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            TextButton(
-              onPressed: () {
-                widget.onCardTap();
-              },
-              child: Text(
-                'Login with Email',
-                style: GoogleFonts.kanit(
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
-                  color: Colors.redAccent,
-                  decoration: TextDecoration.combine([
-                    TextDecoration.underline,
-                    TextDecoration.underline,
-                  ]),
-                  decorationColor: Colors.redAccent,
-                  decorationThickness: 2.0,
-                ),
-              ),
-            ),
-            Text(
-              'Login with Phone',
-              style: GoogleFonts.kanit(
-                color: Colors.white,
-                fontSize: MediaQuery.of(context).size.width * 0.04,
-              ),
-            ),
-          ]),
-          Form(
-            key: _phoneFormKey,
-            child: TextFormField(
-              controller: _phone,
-              cursorColor: Colors.white,
-              enableSuggestions: false,
-              keyboardType: TextInputType.number,
-              selectionControls: emptyTextSelectionControls,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(12),
-                phoneformat(),
-              ],
-              autocorrect: false,
-              textAlignVertical: TextAlignVertical.center,
-              cursorRadius: Radius.circular(100),
-              cursorHeight: MediaQuery.of(context).size.height * 0.04,
-              cursorWidth: MediaQuery.of(context).size.width * 0.001,
-              cursorOpacityAnimates: true,
-              showCursor: true,
-              decoration: InputDecoration(
-                suffixIcon: _phoneFormKey.currentState?.validate() == false
-                    ? IconButton(
-                        icon: Icon(
-                          FontAwesomeIcons.play,
-                          color: isSender == true ? Colors.white : Colors.grey,
-                        ),
-                        onPressed: () async {
-                          if (_phoneFormKey.currentState?.validate() ?? false) {
-                            await Future.delayed(Duration(milliseconds: 1));
-                            setState(() {
-                              isSender = false;
-                            });
-                          } else {
-                            showAboutDialog(context: context);
-                          }
-                        },
-                      )
-                    : Icon(
-                        FontAwesomeIcons.play,
-                        color: Colors.grey,
+          SingleChildScrollView(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      widget.onCardTap();
+                    },
+                    child: Text(
+                      'Login with Email',
+                      style: GoogleFonts.kanit(
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                        color: Colors.redAccent,
+                        decoration: TextDecoration.combine([
+                          TextDecoration.underline,
+                          TextDecoration.underline,
+                        ]),
+                        decorationColor: Colors.redAccent,
+                        decorationThickness: 2.0,
                       ),
-                filled: false,
-                fillColor: Colors.white,
-                prefixIcon: Icon(Icons.person, color: Colors.white),
-                hintText: '000-000-0000',
-                hintStyle: GoogleFonts.kanit(
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
-                  color: Colors.white54,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: MediaQuery.of(context).size.width * 0.001,
-                    color: Colors.white,
-                    style: BorderStyle.solid,
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: MediaQuery.of(context).size.width * 0.001,
-                    color: Colors.white,
-                    style: BorderStyle.solid,
+                  Text(
+                    'Login with Phone',
+                    style: GoogleFonts.kanit(
+                      color: Colors.white,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                labelText: 'Phone',
-                labelStyle: GoogleFonts.kanit(
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
-                  color: Colors.white,
-                ),
-              ),
-              style: TextStyle(
-                color: Colors.white,
-              ),
+                ]),
+          ),
+          SingleChildScrollView(
+            child: Row(
+              children: [
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: IntlPhoneField(
+                      dropdownTextStyle: TextStyle(color: Colors.white),
+                      autofocus: true,
+                      cursorColor: Colors.white,
+                      flagsButtonPadding: const EdgeInsets.all(8),
+                      dropdownIconPosition: IconPosition.trailing,
+                      decoration: const InputDecoration(
+                        focusColor: Colors.white,
+                        labelText: 'Phone Number',
+                        labelStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                      ),
+                      initialCountryCode: 'TH',
+                      onChanged: (phone) {
+                        print(phone.completeNumber);
+                      },
+                    )),
+              ],
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.02,
-          ),
-          Form(
+          SingleChildScrollView(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -1040,63 +1000,65 @@ class _Card_PHONEState extends State<Card_PHONE> {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Checkbox(
-                fillColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    return isremember
-                        ? Colors.blue
-                        : Colors.grey; // Change these colors as needed
+          SingleChildScrollView(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Checkbox(
+                  fillColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      return isremember
+                          ? Colors.blue
+                          : Colors.grey; // Change these colors as needed
+                    },
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  checkColor: Colors.white,
+                  value: isremember,
+                  onChanged: (value) {
+                    setState(() {
+                      isremember = value ?? false;
+                    });
                   },
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                checkColor: Colors.white,
-                value: isremember,
-                onChanged: (value) {
-                  setState(() {
-                    isremember = value ?? false;
-                  });
-                },
-              ),
-              Text(
-                'Remember me',
-                style: GoogleFonts.kanit(color: Colors.white),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.0,
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          SPLASH_UI(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = 0.0;
-                        const end = 1.0;
-                        var tween = Tween(begin: begin, end: end);
-                        var fadeAnimation = animation.drive(tween);
-                        return FadeTransition(
-                          opacity: fadeAnimation,
-                          child: child,
-                        );
-                      },
-                      transitionDuration: const Duration(milliseconds: 500),
-                    ),
-                  );
-                },
-                child: Text(
-                  'Forgot your password?',
+                Text(
+                  'Remember me',
                   style: GoogleFonts.kanit(color: Colors.white),
                 ),
-              )
-            ],
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.0,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            SPLASH_UI(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          const begin = 0.0;
+                          const end = 1.0;
+                          var tween = Tween(begin: begin, end: end);
+                          var fadeAnimation = animation.drive(tween);
+                          return FadeTransition(
+                            opacity: fadeAnimation,
+                            child: child,
+                          );
+                        },
+                        transitionDuration: const Duration(milliseconds: 500),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Forgot your password?',
+                    style: GoogleFonts.kanit(color: Colors.white),
+                  ),
+                )
+              ],
+            ),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.002,
